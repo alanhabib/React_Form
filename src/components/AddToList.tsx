@@ -11,10 +11,14 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
     age: "",
     note: "",
     img: "",
+    numbers: "",
+    isGoing: "",
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ): void => {
     setInput({
       ...input,
@@ -33,9 +37,18 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
         age: parseInt(input.age),
         url: input.img,
         note: input.note,
+        numbers: parseInt(input.numbers),
+        isGoing: input.isGoing,
       },
     ]);
-    setInput({ name: "", age: "", note: "", img: "" });
+    setInput({
+      name: "",
+      age: "",
+      note: "",
+      img: "",
+      numbers: "",
+      isGoing: "",
+    });
   };
 
   return (
@@ -71,6 +84,28 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
         className="AddToList-input"
         onChange={handleChange}
       ></textarea>
+      <select
+        className="AddToList-input"
+        onChange={handleChange}
+        name="digits"
+        multiple={true}
+        value={input.numbers}
+      >
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((value) => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
+      </select>
+      <label>
+        Is going:
+        <input
+          name="isGoing"
+          type="checkbox"
+          checked={input.isGoing}
+          onChange={handleChange}
+        />
+      </label>
       <button className="AddToList-btn" onClick={handleClick}>
         Add to list
       </button>

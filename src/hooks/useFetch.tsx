@@ -15,24 +15,27 @@ export const useFetch = (url: string) => {
 
   const setPartData = (partialData: any) =>
     setData({ ...data, ...partialData });
+
   useEffect(() => {
     setPartData({
       state: apiStates.LOADING,
     });
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
         setPartData({
           state: apiStates.SUCCESS,
           data,
         });
-      })
-      .catch(() => {
+      } catch (error) {
         setPartData({
           state: apiStates.ERROR,
-          error: "Fetch failed",
+          error: "Fetch failed. Awkward... " + error,
         });
-      });
+      }
+    };
+    fetchData();
   }, []);
   return data;
 };
