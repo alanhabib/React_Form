@@ -4,15 +4,6 @@ export const useForm = (options: any) => {
   const [values, setValues] = useState(options?.initialValues || {});
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    setValues((prevValues) => ({
-      ...input,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
